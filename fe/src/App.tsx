@@ -4,7 +4,7 @@ import LogIn from './components/LogIn';
 function App() {
   return (
     <div>
-      <LogIn />
+      <LogIn links={['Login', 'ToDo']} />
     </div>
   );
 }

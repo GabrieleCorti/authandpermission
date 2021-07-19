@@ -1,5 +1,6 @@
 import React from 'react'
 import LogSignFormS from './LogSignFormS'
+import BtnLogSign from './BtnLogSign'
 
 interface Props {
     title: string
@@ -25,6 +26,7 @@ const LogInForm = ({title, signIn}:Props) => {
             <label htmlFor="password">PassWord</label>
             <input type="password" id='password' />
             {signIn && <ConfirmPword />}
+            <BtnLogSign>{signIn && 'Registrati' || 'Login'}</BtnLogSign>
         </LogSignFormS>
     )
 }
