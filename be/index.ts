@@ -38,7 +38,8 @@ app.post('/user/addUser', (req:Request, res:Response) => {
         console.log(UserTxt);
         
         fs.writeFileSync('../db/user.json', UserTxt )
-        return;
+        res.sendStatus(200);
     }
+    res.sendStatus(400);
 });
 app.listen(port, () => console.log(`Example app listening on port port!`))
