@@ -1,0 +1,12 @@
+{
+  "name": "authandpermission",
+  "version": "1.0.0",
+  "description": "authandpermission",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compielstart": "cd be && npx tsc && cd build && node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
