@@ -26,12 +26,13 @@ const LogInForm = ({title, isSignIn}:Props) => {
    /* const [isSame, setIsSame] = useState<boolean>(false); */
 
 
-
+    
     useEffect(()=> {
         if (name && password && confirm === password) {
             setIsComplete(true);
         } 
     },[name, confirm, password]);
+    
 
     const Subscribe = () => {
         if (isComplete) {
@@ -61,6 +62,17 @@ const LogInForm = ({title, isSignIn}:Props) => {
         
     }
 
+    const LogIn = () => {
+        axios({
+            method: "post",
+            url: "http://localhost:5000/user/login",
+            data: {
+                name: name,
+                password: password
+            }
+        })
+    }
+
     return (
         <LogSignFormS>
             <h1>{title}</h1>
@@ -69,7 +81,7 @@ const LogInForm = ({title, isSignIn}:Props) => {
             <label htmlFor="password">PassWord</label>
             <input type="password" id='password' onChange={e => setPassword(e.target.value)} required/>
             {isSignIn && <ConfirmPword onChange={(e:React.ChangeEvent<HTMLInputElement>) => setConfirm(e.target.value)} />}
-            <BtnLogSign onClick={Subscribe}>{(isSignIn && 'Registrati') || 'Login'}</BtnLogSign>
+            <BtnLogSign onClick={isSignIn && Subscribe || LogIn}>{(isSignIn && 'Registrati') || 'Login'}</BtnLogSign>
         </LogSignFormS>
     )
 }

@@ -5,6 +5,7 @@ import { Response, Request, NextFunction  } from "express";
 const url:string = 'http://localhost:3000/'
 const cors = require('cors');
 const fs = require('fs');
+const jwt = require('jsonwebtoken');
 const TabelUser = require('../db/user.json');
 
 app.use(cors());
@@ -35,7 +36,7 @@ app.post('/user/addUser', (req:Request, res:Response) => {
         const UserTxt = JSON.stringify(users)
         
         fs.writeFileSync('../db/user.json', UserTxt )
-        return;
+        res.redirect(`${url}/login`);
     }
 
     return;
@@ -43,7 +44,9 @@ app.post('/user/addUser', (req:Request, res:Response) => {
 
 app.post("/user/login", (req:Request, res:Response)=>{
     const Body = req.body;
-    if ()
+    if (Body.name && Body.password) {
+        console.log('scemo');  
+    }
 })
 
 app.listen(port, () => console.log(`Example app listening on port port!`))
