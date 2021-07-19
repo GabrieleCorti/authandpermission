@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const LogInS = styled.div`
+const LogSub = styled.div`
     height: 100vh;
     background-color: #c4e9d5be;
     margin: 0;
@@ -9,4 +9,4 @@ const LogInS = styled.div`
     position: relative;
 `;
 
-export default LogInS;
+export default LogSub;

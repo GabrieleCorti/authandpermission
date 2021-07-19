@@ -1,5 +1,5 @@
 import React from 'react';
-import LogIn from './components/LogIn';
+import LogSub from './components/LogSub';
 import {BrowserRouter as Router, Route } from 'react-router-dom';
 
 function App() {
@@ -7,9 +7,12 @@ function App() {
     
       <div>
         <Router>
-        <Route exact path='/register'>
-          <LogIn links={['Login', 'ToDo']} />
-        </Route>
+          <Route exact path='/register'>
+            <LogSub links={['Login', 'ToDo']} isSigIn={true} title="Registrati al ToDo con Admin" />
+          </Route>
+          <Route exact path='/login'>
+            <LogSub links={['Register', 'ToDo']} isSigIn={false} title="Loggati per accedere al ToDo "/>
+          </Route>
         </Router>  
       </div>
     

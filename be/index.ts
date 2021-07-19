@@ -23,8 +23,6 @@ app.get('/', (req:Request, res:Response) => res.send('Hello World!'));
 app.post('/user/addUser', (req:Request, res:Response) => {
     const Body = req.body;
     let users:User[] = TabelUser.users;
-    console.log(Body);
-    console.log(users);
     
     if (Body.name && Body.password) {
         const NewUser:User = {
@@ -35,11 +33,17 @@ app.post('/user/addUser', (req:Request, res:Response) => {
         }
         users.push(NewUser);
         const UserTxt = JSON.stringify(users)
-        console.log(UserTxt);
         
         fs.writeFileSync('../db/user.json', UserTxt )
-        res.sendStatus(200);
+        return;
     }
-    res.sendStatus(400);
+
+    return;
 });
+
+app.post("/user/login", (req:Request, res:Response)=>{
+    const Body = req.body;
+    if ()
+})
+
 app.listen(port, () => console.log(`Example app listening on port port!`))

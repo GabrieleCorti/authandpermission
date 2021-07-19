@@ -6,7 +6,7 @@ import axios from 'axios'
 
 interface Props {
     title: string
-    signIn: boolean
+    isSignIn?: boolean
 }
 
 const ConfirmPword = ({onChange}:any) => {
@@ -18,7 +18,7 @@ const ConfirmPword = ({onChange}:any) => {
     )
 }
 
-const LogInForm = ({title, signIn}:Props) => {
+const LogInForm = ({title, isSignIn}:Props) => {
    const [name, setName] = useState<string>('');
    const [password, setPassword] = useState<string>('');
    const [confirm, setConfirm] = useState<string>('');
@@ -43,7 +43,13 @@ const LogInForm = ({title, signIn}:Props) => {
                         name: name,
                         password: password
                     }
-                });
+                }).then((res)=>{
+
+                    if (res.status === 400) {
+                        alert('cis oo stati problemi con la registrazione, ritorna più tardi')
+                    }
+                }
+                );
             } catch (err) {
     
                 console.log(err);
@@ -62,8 +68,8 @@ const LogInForm = ({title, signIn}:Props) => {
             <input type="text" id='name' onChange={e => setName(e.target.value)} required/>
             <label htmlFor="password">PassWord</label>
             <input type="password" id='password' onChange={e => setPassword(e.target.value)} required/>
-            {signIn && <ConfirmPword onChange={(e:React.ChangeEvent<HTMLInputElement>) => setConfirm(e.target.value)} />}
-            <BtnLogSign onClick={Subscribe}>{(signIn && 'Registrati') || 'Login'}</BtnLogSign>
+            {isSignIn && <ConfirmPword onChange={(e:React.ChangeEvent<HTMLInputElement>) => setConfirm(e.target.value)} />}
+            <BtnLogSign onClick={Subscribe}>{(isSignIn && 'Registrati') || 'Login'}</BtnLogSign>
         </LogSignFormS>
     )
 }
