@@ -13,8 +13,8 @@ const LogIn = ({links}:Props) => {
             <NavS>
                 <ul>
                     {
-                        links.map(e => {
-                            return <li><a href={`/${e}`}>{e}</a></li>
+                        links.map((e, index) => {
+                            return <li key={index}><a href={`/${e}`}>{e}</a></li>
                         })
                     }
                 </ul>

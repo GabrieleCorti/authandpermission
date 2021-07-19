@@ -10,8 +10,8 @@ interface Props {
 const ConfirmPword = () => {
     return(
         <>
-        <label htmlFor="password">Confirm Password</label>
-        <input type="password" id='password' />
+        <label htmlFor="confirm">Confirm Password</label>
+        <input type="password" id='confirm' />
         </>
     )
 }
@@ -26,7 +26,7 @@ const LogInForm = ({title, signIn}:Props) => {
             <label htmlFor="password">PassWord</label>
             <input type="password" id='password' />
             {signIn && <ConfirmPword />}
-            <BtnLogSign>{signIn && 'Registrati' || 'Login'}</BtnLogSign>
+            <BtnLogSign>{(signIn && 'Registrati') || 'Login'}</BtnLogSign>
         </LogSignFormS>
     )
 }
