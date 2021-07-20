@@ -63,6 +63,7 @@ const LogInForm = ({title, isSignIn}:Props) => {
     }
 
     const LogIn = () => {
+       try {
         axios({
             method: "post",
             url: "http://localhost:5000/user/login",
@@ -71,6 +72,13 @@ const LogInForm = ({title, isSignIn}:Props) => {
                 password: password
             }
         })
+        .then((res)=>{
+            localStorage["token"] = res.data.token
+            localStorage["isAdmin"]= res.data.isAdmin
+        });
+       } catch (error) {
+           alert(error)   
+       }
     }
 
     return (

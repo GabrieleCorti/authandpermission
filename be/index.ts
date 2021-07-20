@@ -18,6 +18,11 @@ interface User {
     role: 'user' | 'admin'
 }
 
+interface Body {
+    name:string,
+    password:string
+}
+
 
 app.get('/', (req:Request, res:Response) => res.send('Hello World!'));
 
@@ -35,18 +40,44 @@ app.post('/user/addUser', (req:Request, res:Response) => {
         users.push(NewUser);
         const UserTxt = JSON.stringify(users)
         
-        fs.writeFileSync('../db/user.json', UserTxt )
-        res.redirect(`${url}/login`);
+        fs.writeFileSync('../db/user.json', `{ "users": ${UserTxt} }` );
+        res.redirect("http://localhost:3000/login");
     }
 
     return;
 });
 
 app.post("/user/login", (req:Request, res:Response)=>{
+    const TabelUser = require('../db/user.json');
     const Body = req.body;
+    console.log(Body);
+    
+    const Users:User[] = TabelUser.users;
+    console.log(Users);
+    
+    
     if (Body.name && Body.password) {
-        console.log('scemo');  
+        console.log(Body.name, Body.password);
+        
+        const ThisUser = Users.find(e => e.name == Body.name )
+        console.log(ThisUser);
+        
+        if (ThisUser) {
+          const Token = jwt.sign({
+                data: ThisUser
+            }, 'secret', { expiresIn: '1h' });
+            console.log(Token);
+            let isAdmin:boolean = false 
+            ThisUser.role === "admin" ? isAdmin = true : isAdmin;
+            
+            res.json({ 
+                token: Token,
+                isAdmin: isAdmin
+             });
+        }
+        return;
     }
+    return;
 })
 
 app.listen(port, () => console.log(`Example app listening on port port!`))
