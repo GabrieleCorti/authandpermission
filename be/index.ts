@@ -41,7 +41,7 @@ app.post('/user/addUser', (req:Request, res:Response) => {
         const UserTxt = JSON.stringify(users)
         
         fs.writeFileSync('../db/user.json', `{ "users": ${UserTxt} }` );
-        res.redirect("http://localhost:3000/login");
+        return;
     }
 
     return;
@@ -49,17 +49,20 @@ app.post('/user/addUser', (req:Request, res:Response) => {
 
 app.post("/user/login", (req:Request, res:Response)=>{
     const TabelUser = require('../db/user.json');
-    const Body = req.body;
-    console.log(Body);
+    const Body:Body = req.body;
+    /* console.log(Body); */
     
     const Users:User[] = TabelUser.users;
-    console.log(Users);
+    /* console.log(Users); */
     
     
     if (Body.name && Body.password) {
-        console.log(Body.name, Body.password);
+        /* console.log(Body.name, Body.password); */
         
-        const ThisUser = Users.find(e => e.name == Body.name )
+        const ThisUser = Users.find(e => {
+            console.log(e.name.length, Body.name.length, e.name === Body.name);
+            return e.name === Body.name
+        } )
         console.log(ThisUser);
         
         if (ThisUser) {
@@ -73,9 +76,11 @@ app.post("/user/login", (req:Request, res:Response)=>{
             res.json({ 
                 token: Token,
                 isAdmin: isAdmin
-             });
+             })
+            return;
         }
-        return;
+        res.sendStatus(401);
+        
     }
     return;
 })

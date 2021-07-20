@@ -24,19 +24,22 @@ app.post('/user/addUser', (req, res) => {
         users.push(NewUser);
         const UserTxt = JSON.stringify(users);
         fs.writeFileSync('../db/user.json', `{ "users": ${UserTxt} }`);
-        res.redirect("http://localhost:3000/login");
+        return;
     }
     return;
 });
 app.post("/user/login", (req, res) => {
     const TabelUser = require('../db/user.json');
     const Body = req.body;
-    console.log(Body);
+    /* console.log(Body); */
     const Users = TabelUser.users;
-    console.log(Users);
+    /* console.log(Users); */
     if (Body.name && Body.password) {
-        console.log(Body.name, Body.password);
-        const ThisUser = Users.find(e => e.name == Body.name);
+        /* console.log(Body.name, Body.password); */
+        const ThisUser = Users.find(e => {
+            console.log(e.name.length, Body.name.length, e.name === Body.name);
+            return e.name === Body.name;
+        });
         console.log(ThisUser);
         if (ThisUser) {
             const Token = jwt.sign({
@@ -49,8 +52,9 @@ app.post("/user/login", (req, res) => {
                 token: Token,
                 isAdmin: isAdmin
             });
+            return;
         }
-        return;
+        res.sendStatus(401);
     }
     return;
 });

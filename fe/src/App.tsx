@@ -1,5 +1,6 @@
 import React from 'react';
 import LogSub from './components/LogSub';
+import ToDo from './components/ToDo';
 import {BrowserRouter as Router, Route } from 'react-router-dom';
 
 function App() {
@@ -12,6 +13,9 @@ function App() {
           </Route>
           <Route exact path='/login'>
             <LogSub links={['Register', 'ToDo']} isSigIn={false} title="Loggati per accedere al ToDo "/>
+          </Route>
+          <Route exact path='/ToDo'>
+            <ToDo />
           </Route>
         </Router>  
       </div>

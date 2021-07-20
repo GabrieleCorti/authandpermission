@@ -25,6 +25,13 @@ const LogSignFormS = styled.div`
         margin: 0 0 20px;
         font-size: 36px;
     }
+    p {
+        color: white;
+        margin: 0 0 12px;
+    }
+    a {
+        color: green;
+    }
     box-sizing: border-box;
 `;
 
