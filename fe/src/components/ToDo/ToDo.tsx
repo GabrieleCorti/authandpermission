@@ -1,12 +1,16 @@
 import React from 'react'
 import { BoxRedirectS } from "./ToDoS";
+import MainApp from '../MainApp';
 
 
-const ToDoApp = () => {
+interface Props {
+    isAdmin: boolean 
+}
+
+
+const ToDoApp = ({isAdmin}:Props) => {
     return (
-        <div>
-            <h1>ToDO App</h1>
-        </div>
+        <MainApp isAdmin={isAdmin} />
     )
 }
 
@@ -26,12 +30,14 @@ const BoxRedirect = () => {
 const ToDo = () => {
 
     const Token = localStorage.getItem("token");
-    const IsAdmin = localStorage.getItem("isAdmin");
+    const IsAdmin = (localStorage.getItem("isAdmin") === 'true');
+    console.log(IsAdmin);
+    
 
     return (
         <div>
             {
-                Token? <ToDoApp /> : <BoxRedirect />
+                Token? <ToDoApp isAdmin={IsAdmin}/> : <BoxRedirect />
             }
         </div>
     )
