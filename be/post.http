@@ -2,6 +2,20 @@ POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
-    "name": "ddf",
-    "password": "ffdd"
+    "name": "User",
+    "password": "User"
 }
+
+###
+
+GET http://localhost:5000/allTask
+Content-Type: application/json
+
+###
+DELETE http://localhost:5000/allTask/delete/2
+Content-Type: application/json
+
+###
+
+GET http://localhost:5000/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjY4NTc4MDkxNTMsImlkIjoyLCJpYXQiOjE2MjY4NTQyMDl9.1kM-AIb0DNA2jorrm1ELTAW8hgLjzV6NnDr4F1YVatg
