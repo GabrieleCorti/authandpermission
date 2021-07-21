@@ -4,6 +4,7 @@ import BtnLogSign from "./BtnLogSign";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import SecurityBar from "../SecurityBar";
 
 interface Props {
   title: string;
@@ -25,6 +26,7 @@ const LogInForm = ({ title, isSignIn }: Props) => {
   const [confirm, setConfirm] = useState<string>("");
   const [isComplete, setIsComplete] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
+  const [barrProg, setBarProg] = useState<number>(-1);
   /* const [isSame, setIsSame] = useState<boolean>(false); */
 
   let history = useHistory();
@@ -34,6 +36,8 @@ const LogInForm = ({ title, isSignIn }: Props) => {
       setIsComplete(true);
     }
   }, [name, confirm, password]);
+
+  useEffect(() => {});
 
   const Subscribe = () => {
     if (isComplete) {
@@ -56,8 +60,7 @@ const LogInForm = ({ title, isSignIn }: Props) => {
   };
 
   const LogIn = () => {
-    
-      axios({
+    /* axios({
         method: "post",
         url: "http://localhost:5000/user/login",
         data: {
@@ -73,10 +76,31 @@ const LogInForm = ({ title, isSignIn }: Props) => {
           if (err.response) {
             setIsError(true);
           }
+      }); */
+    try {
+      axios({
+        method: "post",
+        url: "http://localhost:5000/user/login",
+        data: {
+          name: name,
+          password: password,
+        },
+      }).then((res) => {
+        if (res.data.found) {
+          localStorage["token"] = res.data.data.token;
+          localStorage["isAdmin"] = res.data.data.isAdmin;
+          history.push("/ToDo");
+        } else { setIsError(true); }
       });
-  
-       
-  
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const Step = (srt: string) => {
+    const ValidEmail = new RegExp(srt);
+
+    return ValidEmail;
   };
 
   return (
@@ -96,6 +120,7 @@ const LogInForm = ({ title, isSignIn }: Props) => {
         onChange={(e) => setPassword(e.target.value)}
         required
       />
+      {isSignIn && <SecurityBar number={0} />}
       {isSignIn && (
         <ConfirmPword
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -103,7 +128,12 @@ const LogInForm = ({ title, isSignIn }: Props) => {
           }
         />
       )}
-      {isError && <p>user o password errati, riprova o <a href="http://localhost:3000/Register">Registrati</a></p>}
+      {isError && (
+        <p>
+          user o password errati, riprova o{" "}
+          <a href="http://localhost:3000/Register">Registrati</a>
+        </p>
+      )}
       <BtnLogSign onClick={(isSignIn && Subscribe) || LogIn}>
         {(isSignIn && "Registrati") || "Login"}
       </BtnLogSign>

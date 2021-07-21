@@ -76,7 +76,7 @@ app.post("/user/addUser", VerifyToken, (req: Request, res: Response) => {
 
 app.post("/user/login", (req: Request, res: Response) => {
   const TabelUser = require("../db/user.json");
-  const Body: Body = req.body;
+  const Body:Body = req.body;
   /* console.log(Body); */
 
   const Users: User[] = TabelUser.users;
@@ -102,14 +102,20 @@ app.post("/user/login", (req: Request, res: Response) => {
       ThisUser.role === "admin" ? (isAdmin = true) : isAdmin;
 
       res.json({
-        token: Token,
-        isAdmin: isAdmin,
+        found: true,
+        data: {
+          token: Token,
+          isAdmin: isAdmin,
+        }
       });
       return;
     }
-    res.sendStatus(401);
+    res.json({
+      found: false,
+      data: {}
+    })
+    return;
   }
-  return;
 });
 
 app.get("/allTask", (req: Request, res: Response) => {

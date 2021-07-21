@@ -68,14 +68,20 @@ app.post("/user/login", (req, res) => {
             let isAdmin = false;
             ThisUser.role === "admin" ? (isAdmin = true) : isAdmin;
             res.json({
-                token: Token,
-                isAdmin: isAdmin,
+                found: true,
+                data: {
+                    token: Token,
+                    isAdmin: isAdmin,
+                }
             });
             return;
         }
-        res.sendStatus(401);
+        res.json({
+            found: false,
+            data: {}
+        });
+        return;
     }
-    return;
 });
 app.get("/allTask", (req, res) => {
     const TableTask = require("../db/task.json");

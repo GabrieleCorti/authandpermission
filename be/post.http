@@ -12,7 +12,7 @@ GET http://localhost:5000/allTask
 Content-Type: application/json
 
 ###
-POST http://localhost:5000/allTask/delete/1
+POST http://localhost:5000/allTask/delete/2
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjY4NzA3NzU0NjksImlkIjoxLCJpYXQiOjE2MjY4NjcxNzV9.D9hScRvt-oTdzIKCgRek_g9mIIvdTmnYsWN-ek7Szwo
 Content-Type: application/json
 
