@@ -20,7 +20,7 @@ const VerifyToken = (req, res, next) => {
     }
     jwt.verify(token, "secret", (err, token) => {
         if (err) {
-            res.send(err);
+            res.sendStatus(401);
         }
         /* res.json(token); */
         if (dayjs().isAfter(token.exp)) {
@@ -128,7 +128,7 @@ app.post("/allTask/delete/:id", VerifyToken, (req, res) => {
         const TaskTxt = JSON.stringify(datas);
         console.log(TaskTxt);
         fs.writeFileSync("../db/task.json", `{"tasks": ${TaskTxt}}`);
-        /* res.json(datas); */
+        res.json(datas);
         return;
     }
     res.sendStatus(401);

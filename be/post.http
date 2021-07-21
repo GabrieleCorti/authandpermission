@@ -2,8 +2,8 @@ POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
-    "name": "User",
-    "password": "User"
+    "name": "Admin",
+    "password": "Admin"
 }
 
 ###
@@ -12,10 +12,21 @@ GET http://localhost:5000/allTask
 Content-Type: application/json
 
 ###
-DELETE http://localhost:5000/allTask/delete/2
+POST http://localhost:5000/allTask/delete/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjY4NzA3NzU0NjksImlkIjoxLCJpYXQiOjE2MjY4NjcxNzV9.D9hScRvt-oTdzIKCgRek_g9mIIvdTmnYsWN-ek7Szwo
 Content-Type: application/json
 
 ###
 
 GET http://localhost:5000/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjY4NTc4MDkxNTMsImlkIjoyLCJpYXQiOjE2MjY4NTQyMDl9.1kM-AIb0DNA2jorrm1ELTAW8hgLjzV6NnDr4F1YVatg
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjY4NjYwMDIzODcsImlkIjoyLCJpYXQiOjE2MjY4NjI0MDJ9.Wf97GkmiOad4Cewzv_HMCS2wvcr0j4k9-bjo9i6jtHM
+
+###
+POST http://localhost:5000/allTask
+Authorization: Bearer eyJhbGciOUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjY4NjYwMDIzODcsImlkIjoyLCJpYXQiOjE2MjY4NjI0MDJ9.Wf97GkmiOad4Cewzv_HMCS2wvcr0j4k9-bjo9i6jtHM
+Content-Type: application/json
+
+{
+    "body": "ciao"
+}

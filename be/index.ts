@@ -38,7 +38,7 @@ const VerifyToken = (req: Request, res: Response, next: NextFunction) => {
   }
   jwt.verify(token, "secret", (err: any, token: any) => {
     if (err) {
-      res.send(err);
+      res.sendStatus(401);
     }
     /* res.json(token); */
     if (dayjs().isAfter(token.exp)) {
@@ -160,7 +160,7 @@ app.post("/allTask/delete/:id", VerifyToken, (req: Request, res: Response) => {
   const userId = res.locals.id;
   const Users:User[] = TabelUser.users;
   const ThisUser = Users.find((e) => e.id === userId);
-
+  
   if (ThisUser && ThisUser.role === "admin") {
     const id = Number(req.params.id);
     const A = require("../db/task.json");
@@ -172,7 +172,7 @@ app.post("/allTask/delete/:id", VerifyToken, (req: Request, res: Response) => {
     console.log(TaskTxt);
 
     fs.writeFileSync("../db/task.json", `{"tasks": ${TaskTxt}}`);
-    /* res.json(datas); */
+    res.json(datas);
     return;
   }
 

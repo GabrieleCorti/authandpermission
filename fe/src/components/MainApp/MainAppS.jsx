@@ -5,8 +5,7 @@ const App = styled.div`
     color: white;
     width: 30%;
     margin: auto;
-    position: relative;
-    top: 300px;
+    margin-top: 50px;
     padding: 40px 0;
     text-align: center;
     ul {
