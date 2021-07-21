@@ -31,7 +31,7 @@ const VerifyToken = (req, res, next) => {
     });
 };
 app.get("/", VerifyToken, (req, res) => res.json(res.locals.id));
-app.post("/user/addUser", (req, res) => {
+app.post("/user/addUser", VerifyToken, (req, res) => {
     const Body = req.body;
     let users = TabelUser.users;
     if (Body.name && Body.password) {
@@ -82,7 +82,7 @@ app.get("/allTask", (req, res) => {
     const Datas = TableTask.tasks;
     res.json(Datas);
 });
-app.post("/allTask", (req, res) => {
+app.post("/allTask", VerifyToken, (req, res) => {
     //leggo i file e li trasformo in json array
     const Datas = TableTask.tasks;
     //se il body ha dati pusho
@@ -116,15 +116,21 @@ app.post("/allTask", (req, res) => {
   res.json(datas);
  
 }); */
-app.post("/allTask/delete/:id", (req, res) => {
-    const id = Number(req.params.id);
-    const A = require("../db/task.json");
-    const Datas = A.tasks;
-    let datas = Datas.filter((e) => e.id !== id);
-    const TaskTxt = JSON.stringify(datas);
-    console.log(TaskTxt);
-    fs.writeFileSync("../db/task.json", `{"tasks": ${TaskTxt}}`);
-    /* res.json(datas); */
-    res.redirect("http://localhost:3000/ToDo");
+app.post("/allTask/delete/:id", VerifyToken, (req, res) => {
+    const userId = res.locals.id;
+    const Users = TabelUser.users;
+    const ThisUser = Users.find((e) => e.id === userId);
+    if (ThisUser && ThisUser.role === "admin") {
+        const id = Number(req.params.id);
+        const A = require("../db/task.json");
+        const Datas = A.tasks;
+        let datas = Datas.filter((e) => e.id !== id);
+        const TaskTxt = JSON.stringify(datas);
+        console.log(TaskTxt);
+        fs.writeFileSync("../db/task.json", `{"tasks": ${TaskTxt}}`);
+        /* res.json(datas); */
+        return;
+    }
+    res.sendStatus(401);
 });
 app.listen(port, () => console.log(`Example app listening on port port!`));
